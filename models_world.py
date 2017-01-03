@@ -1,4 +1,5 @@
 import arcade
+import arcade.sound
 from models import Eevee, Meow, Candy, Stone
 
 class World :
@@ -7,6 +8,7 @@ class World :
     def __init__(self, width, height) :
         self.width = width
         self.height = height
+        self.theme_sound = arcade.sound.load_sound('battlesound.mp3')
         self.gameset()
 
     def gameset(self) :
@@ -16,6 +18,8 @@ class World :
         self.stone = Stone(self, -50, -50)
         self.is_stone = False
         self.game_over = False
+
+        self.playing_sound = self.theme_sound.play()
         self.count_candy_to_gen_stone = 0
         self.count_to_return = 0
         self.meows = []
@@ -34,13 +38,11 @@ class World :
                 self.count_candy_to_gen_stone += 1
             else :
                 self.count_to_return += 1
-                if self.count_to_return == 2 :
+                if self.count_to_return == 4 :
                     self.eevee.set_eevee_type(0)
                     self.count_to_return = 0
 
-        #print ('type:' + str(self.eevee.eevee_type) + ' Count return:' + str(self.count_to_return) + ' Count to gen:' + str(self.count_candy_to_gen_stone))
-
-        if self.count_candy_to_gen_stone >= 5 and not self.is_stone :
+        if self.count_candy_to_gen_stone >= 10 and not self.is_stone :
             self.stone.random_stone_type()
             self.stone.random_location()
             self.is_stone = True
@@ -55,6 +57,7 @@ class World :
             meow.animate(delta)
 
             if self.eevee.hit(meow, 20) :
+                self.playing_sound.pause()
                 self.game_over = True
 
     def on_key_press(self, key, key_modifiers) :
