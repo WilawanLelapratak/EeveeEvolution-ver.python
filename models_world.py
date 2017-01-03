@@ -29,7 +29,7 @@ class World :
 
         if self.eevee.hit(self.candy, 25) :
             self.candy.random_location()
-            self.score += 1
+            self.score += 1 + self.eevee.eevee_type
             if self.eevee.eevee_type == 0 :
                 self.count_candy_to_gen_stone += 1
             else :
@@ -38,14 +38,14 @@ class World :
                     self.eevee.set_eevee_type(0)
                     self.count_to_return = 0
 
-        print ('type:' + str(self.eevee.eevee_type) + ' Count return:' + str(self.count_to_return) + ' Count to gen:' + str(self.count_candy_to_gen_stone))
+        #print ('type:' + str(self.eevee.eevee_type) + ' Count return:' + str(self.count_to_return) + ' Count to gen:' + str(self.count_candy_to_gen_stone))
 
         if self.count_candy_to_gen_stone >= 5 and not self.is_stone :
             self.stone.random_stone_type()
             self.stone.random_location()
             self.is_stone = True
 
-        if self.eevee.hit(self.stone, 25) :
+        if self.eevee.hit(self.stone, 30) :
             self.stone.set_out_of_frame()
             self.eevee.set_eevee_type(self.stone.stone_type)
             self.is_stone = False
