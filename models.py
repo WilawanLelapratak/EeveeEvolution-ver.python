@@ -80,20 +80,20 @@ class Candy(Model) :
         super().__init__(world, x, y, 0)
 
     def random_location(self):
-        self.x = randint(0, self.world.width - 1)
-        self.y = randint(0, self.world.height - 1)
+        self.x = randint(30, self.world.width - 30)
+        self.y = randint(30, self.world.height - 30)
 
 class Stone(Model) :
     def __init__(self, world, x, y) :
         super().__init__(world, x, y, 0)
-        self.stone_type = self.random_stone_type()
+        self.random_stone_type()
 
     def random_stone_type(self) :
-        return randint(1, 3)
+        self.stone_type = randint(1, 3)
 
     def random_location(self):
-        self.x = randint(0, self.world.width - 1)
-        self.y = randint(0, self.world.height - 1)
+        self.x = randint(30, self.world.width - 30)
+        self.y = randint(30, self.world.height - 30)
 
     def set_out_of_frame(self) :
         self.x = -50

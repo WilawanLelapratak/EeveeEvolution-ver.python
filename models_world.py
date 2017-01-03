@@ -30,6 +30,7 @@ class World :
             self.score += 1
 
         if self.score % 5 == 0 and not self.is_stone and self.score != 0 :
+            self.stone.random_stone_type()
             self.stone.random_location()
             self.is_stone = True
 
