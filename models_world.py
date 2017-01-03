@@ -9,6 +9,7 @@ class World :
         self.width = width
         self.height = height
         self.theme_sound = arcade.sound.load_sound('battlesound.mp3')
+        self.evolve_sound = arcade.sound.load_sound('afterevolve.mp3')
         self.gameset()
 
     def gameset(self) :
@@ -19,7 +20,7 @@ class World :
         self.is_stone = False
         self.game_over = False
 
-        self.playing_sound = self.theme_sound.play()
+        self.playing_theme_sound = self.theme_sound.play()
         self.count_candy_to_gen_stone = 0
         self.count_to_return = 0
         self.meows = []
@@ -48,6 +49,7 @@ class World :
             self.is_stone = True
 
         if self.eevee.hit(self.stone, 30) :
+            self.playing_evolve_sound = self.evolve_sound.play()
             self.stone.set_out_of_frame()
             self.eevee.set_eevee_type(self.stone.stone_type)
             self.is_stone = False
@@ -57,7 +59,7 @@ class World :
             meow.animate(delta)
 
             if self.eevee.hit(meow, 20) :
-                self.playing_sound.pause()
+                self.playing_theme_sound.pause()
                 self.game_over = True
 
     def on_key_press(self, key, key_modifiers) :
