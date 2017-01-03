@@ -72,9 +72,13 @@ class World :
     def __init__(self, width, height) :
         self.width = width
         self.height = height
+        self.gameset()
+
+    def gameset(self) :
         self.score = 0
         self.eevee = Eevee(self, 100, 100)
         self.candy = Candy(self, 400, 400)
+        self.game_over = False
         self.meows = []
         for i in range(World.NUM_MEOW):
             meow = Meow(self, 0, 0, 0, 0)
@@ -92,10 +96,7 @@ class World :
             meow.animate(delta)
 
             if self.eevee.hit(meow, 20) :
-                self.score -= 1
-                meow.x = 0
-                meow.y = 0
-                meow.random_direction
+                self.game_over = True
 
     def on_key_press(self, key, key_modifiers):
         if key == arcade.key.SPACE:
