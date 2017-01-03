@@ -35,35 +35,34 @@ class Meow(Model) :
 
 
 class Eevee(Model) :
-    #DIR_RIGHT = 0
-    #DIR_UP = 1
 
-    def __init__(self, world, x, y):
+    def __init__(self, world, x, y) :
         super().__init__(world, x,y, 0)
         self.x = x
         self.y = y
-        self.delta_x = 0
-        self.delta_y = 0
-        #self.direction = Eevee.DIR_RIGHT
+        self.left_right = 0
+        self.up_down = 0
+        self.speed = 5
 
-    def move(self) :
-        self.x += self.delta_x
-        if self.x 
-#    def switch_direction(self):
-#        if self.direction == Eevee.DIR_RIGHT:
-#            self.direction = Eevee.DIR_UP
-#        else:
-#            self.direction = Eevee.DIR_RIGHT
+    def start_moving(self, key) :
+        if key == arcade.key.UP :
+            self.up_down = 1
+        if key == arcade.key.DOWN :
+            self.up_down = -1
+        if key == arcade.key.RIGHT :
+            self.left_right = 1
+        if key == arcade.key.LEFT :
+            self.left_right = -1
 
-    def animate(self, delta):
-        if self.direction == Eevee.DIR_UP:
-            if self.y > self.world.height:
-                self.y = 0
-            self.y += 5
-        else:
-            if self.x > self.world.width:
-                self.x = 0
-            self.x += 5
+    def stop_moving(self, key) :
+        if key in [arcade.key.UP, arcade.key.DOWN] :
+            self.up_down = 0
+        if key in [arcade.key.LEFT, arcade.key.RIGHT] :
+            self.left_right = 0
+
+    def animate(self, delta) :
+        self.x += self.speed * self.left_right
+        self.y += self.speed * self.up_down
 
 class Candy(Model) :
     def __init__(self, world, x, y) :
@@ -105,6 +104,8 @@ class World :
             if self.eevee.hit(meow, 20) :
                 self.game_over = True
 
-    def on_key_press(self, key, key_modifiers):
-        if key == arcade.key.SPACE:
-            self.eevee.switch_direction()
+    def on_key_press(self, key, key_modifiers) :
+        self.eevee.start_moving(key)
+
+    def on_key_release(self, key, key_modifiers) :
+        self.eevee.stop_moving(key)

@@ -55,6 +55,9 @@ class EeveeGameWindow(arcade.Window) :
         elif not self.world.game_over :
             self.world.on_key_press(key, key_modifiers)
 
+    def on_key_release(self, key, key_modifiers) :
+        self.world.on_key_release(key, key_modifiers)
+
 if __name__ == '__main__' :
     window = EeveeGameWindow(SCREEN_WIDTH, SCREEN_HEIGHT)
     arcade.run()
