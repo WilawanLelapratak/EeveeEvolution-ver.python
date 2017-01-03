@@ -1,5 +1,6 @@
 import arcade
-from models import Eevee,World
+from models import Eevee
+from models_world import World
 
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
@@ -39,6 +40,16 @@ class EeveeGameWindow(arcade.Window) :
             arcade.draw_text("Press Space Bar to Continue", 150, self.height/2 - 30, arcade.color.BLACK, 20)
         self.eevee_sprite.draw()
         self.candy_sprite.draw()
+        stone_picture = 'firestone.png'
+        if self.world.stone.stone_type == 1 :
+            stone_picture = 'firestone.png'
+        elif self.world.stone.stone_type == 2 :
+            stone_picture = 'waterstone.png'
+        elif self.world.stone.stone_type == 3 :
+            stone_picture = 'thunderstone.png'
+
+        self.stone_sprite = ModelSprite(stone_picture, model = self.world.stone)
+        self.stone_sprite.draw()
         for sprite in self.meow_sprites :
             sprite.draw()
         arcade.draw_text(str(self.world.score), self.width -60, self.height - 30, arcade.color.BLACK, 20)

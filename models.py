@@ -83,40 +83,18 @@ class Candy(Model) :
         self.x = randint(0, self.world.width - 1)
         self.y = randint(0, self.world.height - 1)
 
-class World :
-    NUM_MEOW = 3
+class Stone(Model) :
+    def __init__(self, world, x, y) :
+        super().__init__(world, x, y, 0)
+        self.stone_type = self.random_stone_type()
 
-    def __init__(self, width, height) :
-        self.width = width
-        self.height = height
-        self.gameset()
+    def random_stone_type(self) :
+        return randint(1, 3)
 
-    def gameset(self) :
-        self.score = 0
-        self.eevee = Eevee(self, 200, 200)
-        self.candy = Candy(self, 400, 400)
-        self.game_over = False
-        self.meows = []
-        for i in range(World.NUM_MEOW):
-            meow = Meow(self, 30, 38, 0, 0)
-            meow.random_direction()
-            self.meows.append(meow)
+    def random_location(self):
+        self.x = randint(0, self.world.width - 1)
+        self.y = randint(0, self.world.height - 1)
 
-    def animate(self, delta) :
-        self.eevee.animate(delta)
-
-        if self.eevee.hit(self.candy, 25) :
-            self.candy.random_location()
-            self.score += 1
-
-        for meow in self.meows :
-            meow.animate(delta)
-
-            if self.eevee.hit(meow, 20) :
-                self.game_over = True
-
-    def on_key_press(self, key, key_modifiers) :
-        self.eevee.start_moving(key)
-
-    def on_key_release(self, key, key_modifiers) :
-        self.eevee.stop_moving(key)
+    def set_out_of_frame(self) :
+        self.x = -50
+        self.y = -50
