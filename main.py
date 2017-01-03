@@ -24,12 +24,18 @@ class EeveeGameWindow(arcade.Window) :
         self.world = World(width, height)
         self.eevee_sprite = ModelSprite('eevee.png', model = self.world.eevee)
         self.candy_sprite = ModelSprite('Caandyy.png', model = self.world.candy)
+        self.meow_sprites = []
+        for meow in self.world.meows :
+            self.meow_sprites.append(ModelSprite('meow.png', model = meow))
 
     def on_draw(self) :
         arcade.start_render()
         arcade.draw_texture_rectangle(300, 300, SCREEN_WIDTH, SCREEN_HEIGHT,self.image)
         self.eevee_sprite.draw()
         self.candy_sprite.draw()
+        for sprite in self.meow_sprites :
+            sprite.draw()
+        arcade.draw_text(str(self.world.score), self.width -60, self.height - 30, arcade.color.BLACK, 20)
 
     def animate(self, delta) :
         self.world.animate(delta)
