@@ -26,7 +26,6 @@ class EeveeGameWindow(arcade.Window) :
 
     def gameset(self) :
         self.image = arcade.load_texture('desertbg.png')
-        self.eevee_sprite = ModelSprite('eevee.png', model = self.world.eevee)
         self.candy_sprite = ModelSprite('Caandyy.png', model = self.world.candy)
         self.meow_sprites = []
         for meow in self.world.meows :
@@ -38,8 +37,27 @@ class EeveeGameWindow(arcade.Window) :
         if self.world.game_over :
             arcade.draw_text("Game Over", 210, self.height/2 + 30, arcade.color.BLACK, 30)
             arcade.draw_text("Press Space Bar to Continue", 150, self.height/2 - 30, arcade.color.BLACK, 20)
-        self.eevee_sprite.draw()
         self.candy_sprite.draw()
+        self.draw_eevee()
+        self.draw_stone()
+
+        for sprite in self.meow_sprites :
+            sprite.draw()
+        arcade.draw_text(str(self.world.score), self.width -60, self.height - 30, arcade.color.BLACK, 20)
+
+    def draw_eevee(self) :
+        eevee_picture = 'eevee.png'
+        if self.world.eevee.eevee_type == 1 :
+            eevee_picture = 'flareon.png'
+        elif self.world.eevee.eevee_type == 2 :
+            eevee_picture = 'vaporeon.png'
+        elif self.world.eevee.eevee_type == 3 :
+            eevee_picture = 'jolteon.png'
+
+        self.eevee_sprite = ModelSprite(eevee_picture, model = self.world.eevee)
+        self.eevee_sprite.draw()
+
+    def draw_stone(self) :
         stone_picture = 'firestone.png'
         if self.world.stone.stone_type == 1 :
             stone_picture = 'firestone.png'
@@ -50,9 +68,6 @@ class EeveeGameWindow(arcade.Window) :
 
         self.stone_sprite = ModelSprite(stone_picture, model = self.world.stone)
         self.stone_sprite.draw()
-        for sprite in self.meow_sprites :
-            sprite.draw()
-        arcade.draw_text(str(self.world.score), self.width -60, self.height - 30, arcade.color.BLACK, 20)
 
     def animate(self, delta) :
         if not self.world.game_over :

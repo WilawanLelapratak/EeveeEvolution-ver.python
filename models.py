@@ -43,6 +43,7 @@ class Eevee(Model) :
         self.left_right = 0
         self.up_down = 0
         self.speed = 5
+        self.eevee_type = 0
 
     def start_moving(self, key) :
         if key == arcade.key.UP :
@@ -64,6 +65,9 @@ class Eevee(Model) :
         self.x += self.speed * self.left_right
         self.y += self.speed * self.up_down
         self.stay_in_frame()
+
+    def set_eevee_type(self, stone_type) :
+        self.eevee_type = stone_type
 
     def stay_in_frame(self) :
         if self.x < 35 :

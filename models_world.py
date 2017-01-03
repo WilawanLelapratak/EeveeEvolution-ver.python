@@ -38,6 +38,7 @@ class World :
 
         if self.eevee.hit(self.stone, 25) :
             self.stone.set_out_of_frame()
+            self.eevee.set_eevee_type(self.stone.stone_type)
             self.is_stone = False
             self.count_candy_to_gen_stone = 0
 
