@@ -16,6 +16,7 @@ class World :
         self.stone = Stone(self, -50, -50)
         self.is_stone = False
         self.game_over = False
+        self.count_candy_to_gen_stone = 0
         self.meows = []
         for i in range(World.NUM_MEOW):
             meow = Meow(self, 30, 38, 0, 0)
@@ -28,15 +29,17 @@ class World :
         if self.eevee.hit(self.candy, 25) :
             self.candy.random_location()
             self.score += 1
+            self.count_candy_to_gen_stone += 1
 
-        if self.score % 5 == 0 and not self.is_stone and self.score != 0 :
+        if self.count_candy_to_gen_stone >= 5 and not self.is_stone and self.score != 0 :
             self.stone.random_stone_type()
             self.stone.random_location()
             self.is_stone = True
 
         if self.eevee.hit(self.stone, 25) :
-            self.stone.set_out_of_frame();
+            self.stone.set_out_of_frame()
             self.is_stone = False
+            self.count_candy_to_gen_stone = 0
 
         for meow in self.meows :
             meow.animate(delta)
