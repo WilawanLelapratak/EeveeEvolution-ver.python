@@ -35,8 +35,8 @@ class EeveeGameWindow(arcade.Window) :
         arcade.start_render()
         arcade.draw_texture_rectangle(300, 300, SCREEN_WIDTH, SCREEN_HEIGHT,self.image)
         if self.world.game_over :
-            arcade.draw_text("Game Over", self.width/2 - 30, self.height/2 + 30, arcade.color.BLACK, 30)
-            arcade.draw_text("Press Space Bar to Continue", self.width/2 - 30, self.height/2 - 30, arcade.color.BLACK, 20)
+            arcade.draw_text("Game Over", 210, self.height/2 + 30, arcade.color.BLACK, 30)
+            arcade.draw_text("Press Space Bar to Continue", 150, self.height/2 - 30, arcade.color.BLACK, 20)
         self.eevee_sprite.draw()
         self.candy_sprite.draw()
         for sprite in self.meow_sprites :
