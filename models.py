@@ -35,18 +35,25 @@ class Meow(Model) :
 
 
 class Eevee(Model) :
-    DIR_RIGHT = 0
-    DIR_UP = 1
+    #DIR_RIGHT = 0
+    #DIR_UP = 1
 
     def __init__(self, world, x, y):
         super().__init__(world, x,y, 0)
-        self.direction = Eevee.DIR_RIGHT
+        self.x = x
+        self.y = y
+        self.delta_x = 0
+        self.delta_y = 0
+        #self.direction = Eevee.DIR_RIGHT
 
-    def switch_direction(self):
-        if self.direction == Eevee.DIR_RIGHT:
-            self.direction = Eevee.DIR_UP
-        else:
-            self.direction = Eevee.DIR_RIGHT
+    def move(self) :
+        self.x += self.delta_x
+        if self.x 
+#    def switch_direction(self):
+#        if self.direction == Eevee.DIR_RIGHT:
+#            self.direction = Eevee.DIR_UP
+#        else:
+#            self.direction = Eevee.DIR_RIGHT
 
     def animate(self, delta):
         if self.direction == Eevee.DIR_UP:
@@ -76,7 +83,7 @@ class World :
 
     def gameset(self) :
         self.score = 0
-        self.eevee = Eevee(self, 100, 100)
+        self.eevee = Eevee(self, 200, 200)
         self.candy = Candy(self, 400, 400)
         self.game_over = False
         self.meows = []
