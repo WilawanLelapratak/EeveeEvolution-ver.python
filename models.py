@@ -23,10 +23,10 @@ class Meow(Model) :
         self.vy = 5 * random()
 
     def animate(self, delta):
-        if (self.x < 0) or (self.x > self.world.width):
+        if (self.x < 30) or (self.x > (self.world.width -30)):
             self.vx = - self.vx
 
-        if (self.y < 0) or (self.y > self.world.height):
+        if (self.y < 38) or (self.y > (self.world.height - 38)):
             self.vy = - self.vy
 
         self.x += self.vx
@@ -63,6 +63,17 @@ class Eevee(Model) :
     def animate(self, delta) :
         self.x += self.speed * self.left_right
         self.y += self.speed * self.up_down
+        self.stay_in_frame()
+
+    def stay_in_frame(self) :
+        if self.x < 35 :
+            self.x = 35
+        if self.x > self.world.width - 35 :
+            self.x = self.world.width - 35
+        if self.y < 35 :
+            self.y = 35
+        if self.y > self.world.height - 35 :
+            self.y = self.world.height - 35
 
 class Candy(Model) :
     def __init__(self, world, x, y) :
@@ -87,7 +98,7 @@ class World :
         self.game_over = False
         self.meows = []
         for i in range(World.NUM_MEOW):
-            meow = Meow(self, 0, 0, 0, 0)
+            meow = Meow(self, 30, 38, 0, 0)
             meow.random_direction()
             self.meows.append(meow)
 
