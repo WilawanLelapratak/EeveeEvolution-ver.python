@@ -3,7 +3,7 @@ import arcade.sound
 from models import Eevee, Meow, Candy, Stone
 
 class World :
-    NUM_MEOW = 3
+    NUM_MEOW = 5
 
     def __init__(self, width, height) :
         self.width = width
@@ -58,7 +58,7 @@ class World :
         for meow in self.meows :
             meow.animate(delta)
 
-            if self.eevee.hit(meow, 20) :
+            if self.eevee.hit(meow, 25) :
                 self.playing_theme_sound.pause()
                 self.game_over = True
 
